@@ -1,0 +1,23 @@
+* { box-sizing: border-box; }
+body { font-family: Arial, sans-serif; display: flex; justify-content: center; padding: 20px; background: #eef2f5; }
+.game-container { background: white; padding: 30px; border-radius: 10px; width: 100%; max-width: 400px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+h1 { text-align: center; margin-top: 0; }
+.rules { font-size: 14px; color: #666; text-align: center; margin-bottom: 20px; }
+
+.controls { display: flex; gap: 10px; margin-bottom: 10px; }
+input { flex: 1; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; text-align: center; }
+button { padding: 10px 15px; cursor: pointer; border: none; border-radius: 5px; color: white; transition: background 0.2s; }
+#checkBtn { background: #28a745; }
+#checkBtn:hover:not(:disabled) { background: #218838; }
+#checkBtn:disabled { background: #94d3a2; cursor: not-allowed; }
+#newGameBtn { background: #007bff; }
+#newGameBtn:hover { background: #0056b3; }
+
+.hidden { display: none !important; }
+#errorMsg { color: #dc3545; font-size: 13px; text-align: center; margin-bottom: 15px; font-weight: bold; }
+
+.status-win { color: #28a745; font-size: 18px; font-weight: bold; text-align: center; margin-bottom: 10px; }
+.attempts { font-weight: bold; margin-bottom: 15px; text-align: center; color: #333; }
+
+ul { list-style: none; padding: 0; margin: 0; }
+li { padding: 10px; background: #f8f9fa; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 5px; text-align: center; }
