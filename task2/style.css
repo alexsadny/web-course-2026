@@ -1,0 +1,146 @@
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+}
+
+/* 1. БАЗОВЫЕ СТИЛИ (Для мобильных устройств до 767px) */
+
+body {
+    font-family: sans-serif;
+    /* CSS Grid для крупной сетки страницы (шапка, контент, подвал) */
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+}
+
+/* Flexbox для компонентов внутри шапки */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #333;
+    color: white;
+}
+
+/* Рисуем гамбургер (меню для мобильных) */
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: white;
+}
+
+/* Скрываем обычные ссылки навигации на мобильном экране */
+.nav {
+    display: none; 
+}
+
+/* CSS Grid для отступов между крупными секциями контента */
+.main-content {
+    display: grid;
+    gap: 40px;
+    padding: 20px;
+}
+
+/* CSS Grid для сетки карточек (1 колонка на мобильном) */
+.services {
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 20px;
+}
+
+/* Flexbox внутри карточки для центрирования содержимого */
+.card {
+    background: #f4f4f4;
+    padding: 40px 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Обязательное условие: плавный переход (transition) */
+    transition: transform 0.3s ease; 
+}
+.card:hover {
+    transform: scale(1.05); /* Увеличение карточки при наведении */
+}
+
+/* Форма: Flexbox для расположения полей друг под другом */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Стили полей и кнопки (touch-friendly, минимум 44px) */
+.contact-form input, 
+.contact-form textarea, 
+.contact-form button {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    min-height: 44px; 
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+/* Стили формы при фокусе (когда курсор внутри поля) */
+.contact-form input:focus, 
+.contact-form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.contact-form button {
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+.contact-form button:hover {
+    background: #0056b3;
+}
+
+.footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* 2. ПЛАНШЕТЫ (От 768px до 1199px) */
+@media (min-width: 768px) {
+    .services {
+        grid-template-columns: repeat(2, 1fr); /* Сетка перестраивается в 2 колонки */
+    }
+    
+    .hamburger {
+        display: none; /* Прячем иконку гамбургера */
+    }
+    
+    .nav {
+        display: flex; /* Показываем нормальное меню */
+        gap: 20px;
+    }
+    
+    .nav a {
+        color: white;
+        text-decoration: none;
+    }
+}
+
+/* 3. ДЕСКТОП (От 1200px и шире) */
+@media (min-width: 1200px) {
+    .services {
+        grid-template-columns: repeat(3, 1fr); /* Сетка перестраивается в 3 колонки */
+    }
+    
+    .main-content {
+        padding: 40px 10vw; /* Добавляем пустые поля по краям на широком мониторе */
+    }
+}
