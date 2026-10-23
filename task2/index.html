@@ -1,93 +1,202 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Авторские торты на заказ</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Авторские торты на заказ от кондитерской Miette. Нежный вкус, натуральные ингредиенты и оформление под ваш повод.">
+  <meta name="theme-color" content="#fbf7f1">
+  <title>Miette — торты, созданные для ваших моментов</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- CSS Grid: Основной каркас страницы -->
-    <div class="page-grid">
-        
-        <!-- Шапка -->
-        <header class="header">
-            <div class="logo">SweetCake</div>
-            
-            <!-- CSS-трюк: чекбокс для работы гамбургер-меню без JS -->
-            <input type="checkbox" id="menu-toggle" class="menu-toggle">
-            <label for="menu-toggle" class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </label>
-            
-            <!-- Навигация (Flexbox) -->
-            <nav class="main-nav">
-                <a href="#about">О нас</a>
-                <a href="#catalog">Ассортимент</a>
-                <a href="#order">Заказать</a>
-            </nav>
-        </header>
+  <div class="announcement-bar">
+    <p>Маленькие поводы — большие торты <span aria-hidden="true">✳</span> Доставка по городу</p>
+  </div>
 
-        <main>
-            <!-- Герой-секция -->
-            <section class="hero" id="about">
-                <div class="hero-content">
-                    <h1>Авторские торты для ваших праздников</h1>
-                    <p>Натуральные ингредиенты, неповторимый дизайн и любовь в каждом кусочке. Создадим идеальный десерт для вашего торжества.</p>
-                    <a href="#order" class="btn">Выбрать десерт</a>
-                </div>
-            </section>
+  <header class="site-header">
+    <div class="site-header__inner page-width">
+      <a class="brand" href="#top" aria-label="Miette — на главную">
+        <span class="brand__mark" aria-hidden="true">m.</span>
+        <span class="brand__name">miette<span>atelier de gâteaux</span></span>
+      </a>
 
-            <!-- Карточки ассортимента -->
-            <section class="catalog" id="catalog">
-                <h2>Наши десерты</h2>
-                <!-- CSS Grid: Сетка карточек -->
-                <div class="catalog-grid">
-                    <div class="card">
-                        <div class="card-icon">🎂</div>
-                        <h3>Свадебные торты</h3>
-                        <p>Многоярусные шедевры с нежным декором и флористикой для главного дня.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon">🍓</div>
-                        <h3>Детские торты</h3>
-                        <p>Яркие, вкусные и абсолютно безопасные торты с любимыми героями.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon">🧁</div>
-                        <h3>Бенто и капкейки</h3>
-                        <p>Мини-десерты для уютных вечеров и небольших компаний от 1 до 4 человек.</p>
-                    </div>
-                </div>
-            </section>
+      <nav class="main-nav" aria-label="Основная навигация">
+        <a href="#catalog">Наши торты</a>
+        <a href="#about">О мастерской</a>
+        <a href="#order-steps">Как заказать</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
 
-            <!-- Форма заказа -->
-            <section class="order" id="order">
-                <h2>Оставить заявку</h2>
-                <form class="contact-form">
-                    <div class="form-group">
-                        <label for="name">Имя</label>
-                        <input type="text" id="name" placeholder="Как к вам обращаться?" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="Ваш почтовый адрес" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Пожелания по декору и начинке</label>
-                        <textarea id="message" rows="4" placeholder="Опишите, какой торт вы хотите..." required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Отправить заявку</button>
-                </form>
-            </section>
-        </main>
+      <a class="header-order-link" href="#order">Обсудить торт <span aria-hidden="true">↗</span></a>
 
-        <!-- Футер -->
-        <footer class="footer">
-            <p>© 2026 Кондитерская SweetCake. Все права защищены.</p>
-        </footer>
+      <button class="menu-toggle" type="button" aria-label="Меню навигации">
+        <span></span><span></span>
+      </button>
     </div>
+  </header>
+
+  <main id="top">
+    <section class="hero page-width" aria-labelledby="hero-title">
+      <div class="hero__copy">
+        <p class="eyebrow"><span class="eyebrow__line"></span> Кондитерская маленьких радостей</p>
+        <h1 id="hero-title">Торт, который<br><em>расскажет</em> о вас</h1>
+        <p class="hero__description">Создаём авторские торты с тонкими вкусами и вниманием к каждой детали — для встреч, которые хочется запомнить.</p>
+        <div class="hero__actions">
+          <a class="button button--dark" href="#order">Создать свой торт <span aria-hidden="true">↗</span></a>
+          <a class="text-link" href="#catalog">Выбрать из коллекции <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="hero__note">
+          <div class="avatar-stack" aria-hidden="true"><span>А</span><span>М</span><span>Е</span></div>
+          <p><strong>Более 800 счастливых поводов</strong><br><span>уже стали чуточку слаще</span></p>
+        </div>
+      </div>
+
+      <div class="hero__visual">
+        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1200&q=88" alt="Праздничный многослойный торт с нежным кремовым декором">
+        <div class="hero-sticker"><span>made with</span><strong>love</strong><span aria-hidden="true">✳</span></div>
+        <div class="hero-caption"><span class="hero-caption__dot"></span><span>Нежно. Вкусно. По-настоящему.</span></div>
+      </div>
+      <div class="hero__side-note" aria-hidden="true">BAKED WITH LOVE · SINCE 2020</div>
+    </section>
+
+    <section class="promise-strip" aria-label="Наши принципы">
+      <div class="promise-strip__inner page-width">
+        <p><span aria-hidden="true">✳</span> Только натуральные ингредиенты</p>
+        <p><span aria-hidden="true">✳</span> Каждый торт — вручную</p>
+        <p><span aria-hidden="true">✳</span> Дизайн под вашу историю</p>
+      </div>
+    </section>
+
+    <section class="catalog section-space page-width" id="catalog" aria-labelledby="catalog-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow"><span class="eyebrow__line"></span> Коллекция Miette</p>
+          <h2 id="catalog-title">Что будем <em>праздновать?</em></h2>
+        </div>
+        <p class="section-heading__aside">У каждого повода свой вкус.<br>Найдём тот, который подойдёт вам.</p>
+      </div>
+
+      <div class="cake-grid">
+        <article class="cake-card">
+          <a class="cake-card__image" href="#order" aria-label="Заказать торт для дня рождения">
+            <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=900&q=85" alt="Нежный праздничный торт для дня рождения" loading="lazy">
+            <span class="cake-card__number">01</span>
+            <span class="cake-card__arrow" aria-hidden="true">↗</span>
+          </a>
+          <div class="cake-card__meta"><h3>Дни рождения</h3><span>от 2 500 ₽</span></div>
+          <p>Яркие, нежные и совсем не как у всех.</p>
+        </article>
+
+        <article class="cake-card cake-card--featured">
+          <a class="cake-card__image" href="#order" aria-label="Заказать свадебный торт">
+            <img src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?auto=format&fit=crop&w=900&q=85" alt="Элегантный белый торт с праздничным оформлением" loading="lazy">
+            <span class="cake-card__number">02</span>
+            <span class="cake-card__arrow" aria-hidden="true">↗</span>
+          </a>
+          <div class="cake-card__meta"><h3>Особенные даты</h3><span>от 4 900 ₽</span></div>
+          <p>Для «да», годовщин и важных обещаний.</p>
+        </article>
+
+        <article class="cake-card">
+          <a class="cake-card__image" href="#order" aria-label="Заказать торт без особого повода">
+            <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=900&q=85" alt="Домашняя выпечка с кремом и ягодами" loading="lazy">
+            <span class="cake-card__number">03</span>
+            <span class="cake-card__arrow" aria-hidden="true">↗</span>
+          </a>
+          <div class="cake-card__meta"><h3>Просто так</h3><span>от 1 900 ₽</span></div>
+          <p>Когда хочется порадовать себя и близких.</p>
+        </article>
+      </div>
+      <div class="catalog__footer"><span>01 — 03 / наши любимые поводы</span><a class="text-link" href="#order">Посмотреть все идеи <span aria-hidden="true">→</span></a></div>
+    </section>
+
+    <section class="about-section" id="about" aria-labelledby="about-title">
+      <div class="about-section__inner page-width">
+        <div class="about-photo">
+          <img src="https://images.unsplash.com/photo-1556909212-d5b604d0c90d?auto=format&fit=crop&w=1100&q=85" alt="Рабочий процесс в уютной кондитерской" loading="lazy">
+          <div class="about-photo__label"><span>наша философия</span><strong>Меньше шума.<br>Больше вкуса.</strong></div>
+        </div>
+        <div class="about-copy">
+          <p class="eyebrow"><span class="eyebrow__line"></span> Немного о нас</p>
+          <h2 id="about-title">Красота —<br>в <em>простых вещах</em></h2>
+          <p class="about-copy__lead">Мы верим, что лучший десерт не должен быть сложным. Он должен быть честным, свежим и приготовленным именно для вас.</p>
+          <p class="about-copy__text">Поэтому мы взбиваем крем небольшими партиями, выбираем сезонные ягоды и не используем готовые смеси. А ещё внимательно слушаем ваши идеи — даже самые необычные.</p>
+          <a class="button button--outline" href="#order">Познакомиться поближе <span aria-hidden="true">↗</span></a>
+          <div class="about-signature"><span class="about-signature__scribble" aria-hidden="true">Miette</span><span>С теплом, команда мастерской</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="steps section-space page-width" id="order-steps" aria-labelledby="steps-title">
+      <div class="section-heading section-heading--center">
+        <p class="eyebrow"><span class="eyebrow__line"></span> Всё просто</p>
+        <h2 id="steps-title">От идеи до <em>первого кусочка</em></h2>
+        <p class="section-heading__description">Никаких сложных формальностей. Только вы, ваша идея и наш любимый процесс.</p>
+      </div>
+      <div class="steps-grid">
+        <article class="step-card"><span class="step-card__count">01</span><span class="step-card__icon" aria-hidden="true">✎</span><h3>Расскажите идею</h3><p>Повод, любимые вкусы, примерный размер и картинки, которые вдохновляют.</p></article>
+        <article class="step-card"><span class="step-card__count">02</span><span class="step-card__icon" aria-hidden="true">♡</span><h3>Создадим вместе</h3><p>Подберём сочетание, обсудим оформление и согласуем стоимость заранее.</p></article>
+        <article class="step-card"><span class="step-card__count">03</span><span class="step-card__icon" aria-hidden="true">✿</span><h3>Наслаждайтесь</h3><p>Приготовим торт к нужному времени — останется только загадать желание.</p></article>
+      </div>
+    </section>
+
+    <section class="quote-section" aria-label="Отзыв клиента">
+      <div class="quote-section__inner page-width">
+        <span class="quote-mark" aria-hidden="true">“</span>
+        <div class="quote-content">
+          <p class="eyebrow">Слова, которые греют</p>
+          <blockquote>«Это был не просто красивый торт — он будто продолжал наш праздник. А вкус фисташки и малины теперь вспоминаем всей семьёй».</blockquote>
+          <div class="quote-author"><span class="quote-author__avatar">Е</span><span><strong>Екатерина Л.</strong><small>Заказ на день рождения</small></span><span class="quote-stars" aria-label="5 из 5 звёзд">★★★★★</span></div>
+        </div>
+        <div class="quote-decoration" aria-hidden="true">♡</div>
+      </div>
+    </section>
+
+    <section class="order-section section-space page-width" id="order" aria-labelledby="order-title">
+      <div class="order-intro">
+        <p class="eyebrow"><span class="eyebrow__line"></span> Начнём с идеи</p>
+        <h2 id="order-title">Давайте сделаем<br><em>что-то вкусное</em></h2>
+        <p>Расскажите немного о вашем событии — мы свяжемся с вами, чтобы обсудить детали и предложить варианты.</p>
+        <div class="order-contact-card">
+          <span class="order-contact-card__icon" aria-hidden="true">✳</span>
+          <span><small>Можно и просто написать</small><a href="mailto:hello@miette.ru">hello@miette.ru</a></span>
+        </div>
+      </div>
+
+      <form class="order-form">
+        <div class="form-topline"><span>Заявка на торт</span><span>01 / 01</span></div>
+        <div class="form-field">
+          <label for="customer-name">Как к вам обращаться?</label>
+          <input id="customer-name" name="name" type="text" placeholder="Ваше имя" autocomplete="name" required>
+        </div>
+        <div class="form-field">
+          <label for="customer-email">Куда ответить?</label>
+          <input id="customer-email" name="email" type="email" placeholder="name@example.com" autocomplete="email" required>
+        </div>
+        <div class="form-field">
+          <label for="customer-message">Расскажите о вашей идее</label>
+          <textarea id="customer-message" name="message" rows="4" placeholder="Повод, дата, любимые вкусы, размер торта…" required></textarea>
+        </div>
+        <button class="button button--dark form-submit" type="submit">Отправить заявку <span aria-hidden="true">↗</span></button>
+        <p class="form-privacy">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contacts">
+    <div class="site-footer__main page-width">
+      <a class="brand brand--footer" href="#top" aria-label="Miette — в начало страницы">
+        <span class="brand__mark" aria-hidden="true">m.</span>
+        <span class="brand__name">miette<span>atelier de gâteaux</span></span>
+      </a>
+      <p class="footer-manifesto">Каждый день достоин<br><em>маленького праздника.</em></p>
+      <div class="footer-links"><span>Заглядывайте</span><a href="https://www.instagram.com/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://t.me/" target="_blank" rel="noreferrer">Telegram ↗</a></div>
+      <div class="footer-contact"><span>Пишите или звоните</span><a href="mailto:hello@miette.ru">hello@miette.ru</a><a href="tel:+79991234567">+7 999 123-45-67</a></div>
+    </div>
+    <div class="site-footer__bottom page-width"><span>© 2026 Miette Atelier. Сделано с любовью.</span><a href="#top">Наверх ↑</a><span>Торты на заказ · ваш город</span></div>
+  </footer>
 </body>
 </html>
