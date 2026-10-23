@@ -3,42 +3,52 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Лендинг - Лабораторная 2</title>
+    <title>Александра Присяжнюк | Менторство и разработка</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header class="header">
-        <div class="logo">Название/Лого</div>
+        <div class="logo">A.P.</div>
         
-        <!-- Гамбургер-меню (только визуальная часть) -->
+        <!-- Гамбургер-меню (визуальная часть) -->
         <div class="hamburger">
             <span></span>
             <span></span>
             <span></span>
         </div>
         
-        <!-- Навигация -->
         <nav class="nav">
-            <a href="#">Услуги</a>
-            <a href="#">О нас</a>
-            <a href="#">Контакты</a>
+            <a href="#hero">Главная</a>
+            <a href="#services">Услуги</a>
+            <a href="#contact">Контакты</a>
         </nav>
     </header>
 
     <main class="main-content">
-        <section class="hero">
-            <h1>Главный заголовок лендинга</h1>
+        <section id="hero" class="hero">
+            <h1>Алгоритмы. Математика. Искусственный интеллект.</h1>
+            <p>Структурированный подход к сложным дисциплинам и разработке.</p>
         </section>
 
         <!-- Сетка карточек -->
-        <section class="services">
-            <div class="card">Услуга 1</div>
-            <div class="card">Услуга 2</div>
-            <div class="card">Услуга 3</div>
+        <section id="services" class="services">
+            <div class="card">
+                <h3>Высшая математика</h3>
+                <p>Математический анализ, линейная алгебра, дифференциальные уравнения и теория вероятностей.</p>
+            </div>
+            <div class="card">
+                <h3>Machine Learning</h3>
+                <p>Построение моделей, работа с данными на Python, понимание математической базы алгоритмов.</p>
+            </div>
+            <div class="card">
+                <h3>Программа Франции</h3>
+                <p>Подготовка школьников по математике и физике в соответствии с французскими образовательными стандартами.</p>
+            </div>
         </section>
 
         <!-- Форма обратной связи -->
-        <section class="contact">
+        <section id="contact" class="contact">
+            <h2>Связаться со мной</h2>
             <form class="contact-form">
                 <input type="text" placeholder="Имя" required>
                 <input type="email" placeholder="Email" required>
@@ -49,7 +59,7 @@
     </main>
 
     <footer class="footer">
-        <p>© 2026 Александра</p>
+        <p>© 2026 Александра Присяжнюк</p>
     </footer>
 </body>
 </html>

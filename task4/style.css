@@ -1,23 +1,253 @@
-* { box-sizing: border-box; }
-body { font-family: Arial, sans-serif; display: flex; justify-content: center; padding: 20px; background: #eef2f5; }
-.game-container { background: white; padding: 30px; border-radius: 10px; width: 100%; max-width: 400px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-h1 { text-align: center; margin-top: 0; }
-.rules { font-size: 14px; color: #666; text-align: center; margin-bottom: 20px; }
+/* Базовые настройки и сброс */
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+}
 
-.controls { display: flex; gap: 10px; margin-bottom: 10px; }
-input { flex: 1; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; text-align: center; }
-button { padding: 10px 15px; cursor: pointer; border: none; border-radius: 5px; color: white; transition: background 0.2s; }
-#checkBtn { background: #28a745; }
-#checkBtn:hover:not(:disabled) { background: #218838; }
-#checkBtn:disabled { background: #94d3a2; cursor: not-allowed; }
-#newGameBtn { background: #007bff; }
-#newGameBtn:hover { background: #0056b3; }
+/* 1. МОБИЛЬНЫЕ УСТРОЙСТВА (Базовые стили) */
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #333;
+    background-color: #f4f7fb; /* Мягкий светлый фон для контраста с градиентами */
+    /* CSS Grid для крупной сетки страницы */
+    display: grid; 
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+}
 
-.hidden { display: none !important; }
-#errorMsg { color: #dc3545; font-size: 13px; text-align: center; margin-bottom: 15px; font-weight: bold; }
+/* Шапка на Flexbox */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
 
-.status-win { color: #28a745; font-size: 18px; font-weight: bold; text-align: center; margin-bottom: 10px; }
-.attempts { font-weight: bold; margin-bottom: 15px; text-align: center; color: #333; }
+.logo { 
+    font-size: 22px; 
+    font-weight: 800; 
+    letter-spacing: 1px;
+    /* Градиентный текст для логотипа */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-ul { list-style: none; padding: 0; margin: 0; }
-li { padding: 10px; background: #f8f9fa; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 5px; text-align: center; }
+/* Гамбургер-меню */
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 3px;
+}
+
+.nav { 
+    display: none; /* Скрыто на смартфонах */
+}
+
+/* Основной контент: макро-сетка Grid */
+.main-content {
+    display: grid;
+    gap: 50px;
+    padding: 40px 20px;
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+}
+.hero h1 { 
+    font-size: 32px; 
+    line-height: 1.3; 
+    /* Яркий градиент для главного заголовка */
+    background: linear-gradient(135deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.hero p { 
+    font-size: 16px; 
+    color: #555; 
+    line-height: 1.5;
+}
+
+/* Сетка карточек на Grid (1 колонка) */
+.services {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+}
+
+/* Карточка: микро-сетка Flexbox */
+.card {
+    background: white;
+    padding: 35px 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    /* Обязательный плавный переход */
+    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; 
+}
+
+/* Градиент при наведении на карточку */
+.card:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 15px 25px rgba(118, 75, 162, 0.3);
+}
+.card:hover p {
+    color: rgba(255, 255, 255, 0.9);
+}
+.card h3 { 
+    font-size: 20px; 
+}
+.card p { 
+    font-size: 15px; 
+    color: #666; 
+    line-height: 1.6;
+    transition: color 0.3s ease;
+}
+
+/* Форма */
+.contact {
+    background: white;
+    padding: 35px 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+}
+.contact h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Элементы формы (touch-friendly, min-height 48px) */
+.contact-form input, 
+.contact-form textarea {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #eef2f6;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: inherit;
+    min-height: 48px; 
+    background: #fcfcfc;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.contact-form textarea { 
+    resize: vertical; 
+    min-height: 120px; 
+}
+.contact-form input:focus, 
+.contact-form textarea:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+    outline: none;
+    background: white;
+}
+
+.contact-form button {
+    /* Градиентная кнопка */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    min-height: 48px;
+    transition: opacity 0.3s ease, transform 0.1s ease;
+}
+.contact-form button:hover { 
+    opacity: 0.9; 
+}
+.contact-form button:active {
+    transform: scale(0.98);
+}
+
+.footer { 
+    background: white;
+    color: #888; 
+    text-align: center; 
+    padding: 25px 20px; 
+    font-size: 14px;
+}
+
+/* 2. ПЛАНШЕТЫ (От 768px) */
+@media (min-width: 768px) {
+    .main-content { 
+        padding: 60px 40px; 
+    }
+    .hero h1 { 
+        font-size: 42px; 
+    }
+    
+    .services { 
+        grid-template-columns: repeat(2, 1fr); /* 2 колонки */
+    }
+    
+    .contact {
+        padding: 45px 50px;
+    }
+
+    .hamburger { 
+        display: none; 
+    }
+    .nav { 
+        display: flex; 
+        gap: 30px; 
+    }
+    .nav a { 
+        color: #555; 
+        text-decoration: none; 
+        font-size: 15px; 
+        font-weight: 600;
+        transition: color 0.3s ease; 
+    }
+    .nav a:hover { 
+        color: #764ba2; 
+    }
+}
+
+/* 3. ДЕСКТОП (От 1200px) */
+@media (min-width: 1200px) {
+    .main-content { 
+        padding: 80px 10vw; 
+        max-width: 1200px; 
+        margin: 0 auto; 
+    }
+    .hero {
+        padding: 40px 0;
+    }
+    .hero h1 {
+        font-size: 52px;
+    }
+    .services { 
+        grid-template-columns: repeat(3, 1fr); /* 3 колонки */
+    }
+    .contact {
+        max-width: 600px;
+        margin: 0 auto;
+        width: 100%;
+    }
+}
