@@ -3,63 +3,91 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Александра Присяжнюк | Менторство и разработка</title>
+    <title>Авторские торты на заказ</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="header">
-        <div class="logo">A.P.</div>
+    <!-- CSS Grid: Основной каркас страницы -->
+    <div class="page-grid">
         
-        <!-- Гамбургер-меню (визуальная часть) -->
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        
-        <nav class="nav">
-            <a href="#hero">Главная</a>
-            <a href="#services">Услуги</a>
-            <a href="#contact">Контакты</a>
-        </nav>
-    </header>
+        <!-- Шапка -->
+        <header class="header">
+            <div class="logo">SweetCake</div>
+            
+            <!-- CSS-трюк: чекбокс для работы гамбургер-меню без JS -->
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            <label for="menu-toggle" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            
+            <!-- Навигация (Flexbox) -->
+            <nav class="main-nav">
+                <a href="#about">О нас</a>
+                <a href="#catalog">Ассортимент</a>
+                <a href="#order">Заказать</a>
+            </nav>
+        </header>
 
-    <main class="main-content">
-        <section id="hero" class="hero">
-            <h1>Алгоритмы. Математика. Искусственный интеллект.</h1>
-            <p>Структурированный подход к сложным дисциплинам и разработке.</p>
-        </section>
+        <main>
+            <!-- Герой-секция -->
+            <section class="hero" id="about">
+                <div class="hero-content">
+                    <h1>Авторские торты для ваших праздников</h1>
+                    <p>Натуральные ингредиенты, неповторимый дизайн и любовь в каждом кусочке. Создадим идеальный десерт для вашего торжества.</p>
+                    <a href="#order" class="btn">Выбрать десерт</a>
+                </div>
+            </section>
 
-        <!-- Сетка карточек -->
-        <section id="services" class="services">
-            <div class="card">
-                <h3>Высшая математика</h3>
-                <p>Математический анализ, линейная алгебра, дифференциальные уравнения и теория вероятностей.</p>
-            </div>
-            <div class="card">
-                <h3>Machine Learning</h3>
-                <p>Построение моделей, работа с данными на Python, понимание математической базы алгоритмов.</p>
-            </div>
-            <div class="card">
-                <h3>Программа Франции</h3>
-                <p>Подготовка школьников по математике и физике в соответствии с французскими образовательными стандартами.</p>
-            </div>
-        </section>
+            <!-- Карточки ассортимента -->
+            <section class="catalog" id="catalog">
+                <h2>Наши десерты</h2>
+                <!-- CSS Grid: Сетка карточек -->
+                <div class="catalog-grid">
+                    <div class="card">
+                        <div class="card-icon">🎂</div>
+                        <h3>Свадебные торты</h3>
+                        <p>Многоярусные шедевры с нежным декором и флористикой для главного дня.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🍓</div>
+                        <h3>Детские торты</h3>
+                        <p>Яркие, вкусные и абсолютно безопасные торты с любимыми героями.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🧁</div>
+                        <h3>Бенто и капкейки</h3>
+                        <p>Мини-десерты для уютных вечеров и небольших компаний от 1 до 4 человек.</p>
+                    </div>
+                </div>
+            </section>
 
-        <!-- Форма обратной связи -->
-        <section id="contact" class="contact">
-            <h2>Связаться со мной</h2>
-            <form class="contact-form">
-                <input type="text" placeholder="Имя" required>
-                <input type="email" placeholder="Email" required>
-                <textarea placeholder="Сообщение" required></textarea>
-                <button type="submit">Отправить</button>
-            </form>
-        </section>
-    </main>
+            <!-- Форма заказа -->
+            <section class="order" id="order">
+                <h2>Оставить заявку</h2>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Имя</label>
+                        <input type="text" id="name" placeholder="Как к вам обращаться?" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Ваш почтовый адрес" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Пожелания по декору и начинке</label>
+                        <textarea id="message" rows="4" placeholder="Опишите, какой торт вы хотите..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Отправить заявку</button>
+                </form>
+            </section>
+        </main>
 
-    <footer class="footer">
-        <p>© 2026 Александра Присяжнюк</p>
-    </footer>
+        <!-- Футер -->
+        <footer class="footer">
+            <p>© 2026 Кондитерская SweetCake. Все права защищены.</p>
+        </footer>
+    </div>
 </body>
 </html>

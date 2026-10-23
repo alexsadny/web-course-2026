@@ -1,4 +1,6 @@
-/* Глобальный сброс и box-sizing по требованиям */
+/* =========================================
+   1. БАЗОВЫЕ СТИЛИ (Mobile First: до 767px)
+   ========================================= */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -7,171 +9,334 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7f6;
-    color: #333;
+    color: #4a3b32; /* Теплый шоколадный оттенок для текста */
+    background-color: #fffafb; /* Очень нежный розово-белый фон */
     line-height: 1.6;
-    /* Центрирование всего контента через Flexbox */
-    display: flex;
-    flex-direction: column;
+}
+
+/* CSS Grid: Крупная сетка всей страницы */
+.page-grid {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+}
+
+/* --- Шапка и меню --- */
+.header {
+    display: grid;
+    grid-template-columns: auto auto; /* Логотип слева, гамбургер справа */
+    justify-content: space-between;
     align-items: center;
-}
-
-/* Оформление шапки */
-header {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-    background-color: #2c3e50;
-    color: #ecf0f1;
-    width: 100%;
-    max-width: 800px;
-    padding: 40px;
-    margin-top: 40px;
-    border-radius: 12px 12px 0 0;
-}
-
-.avatar {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #1abc9c;
-}
-
-.header-text {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-header h1 {
-    font-size: 2.2em;
-    color: #fff;
-}
-
-header h2 {
-    font-size: 1.2em;
-    color: #bdc3c7;
-    font-weight: normal;
-}
-
-.slogan {
-    font-style: italic;
-    color: #1abc9c;
-}
-
-/* Навигация */
-nav {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
-    background-color: #34495e;
-    width: 100%;
-    max-width: 800px;
-    padding: 15px;
-}
-
-nav a {
-    color: #ecf0f1;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
-}
-
-nav a:hover {
-    color: #1abc9c;
-}
-
-/* Основной контент */
-main {
-    display: flex;
-    flex-direction: column;
-    gap: 35px;
     background-color: #ffffff;
-    width: 100%;
-    max-width: 800px;
-    padding: 40px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    padding: 15px 20px;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(74, 59, 50, 0.05);
 }
 
-section {
+.logo {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: #d94f70; /* Ягодный акцент */
+    letter-spacing: 1px;
+}
+
+/* Скрытый чекбокс для работы меню без JS */
+.menu-toggle {
+    display: none;
+}
+
+/* Гамбургер-иконка */
+.hamburger {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 5px;
+    cursor: pointer;
+    padding: 10px;
 }
 
-h2 {
-    color: #2c3e50;
-    border-bottom: 2px solid #ecf0f1;
-    padding-bottom: 5px;
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #4a3b32;
+    transition: 0.3s;
+    border-radius: 2px;
 }
 
-ul {
-    list-style-type: disc;
-    padding-left: 20px;
-    display: flex;
+/* Навигация (Flexbox внутри) */
+.main-nav {
+    display: none; /* Скрыто на мобильном по умолчанию */
+    grid-column: 1 / -1; 
     flex-direction: column;
-    gap: 10px;
+    background-color: #ffffff;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
-/* Оформление навыков в виде "пилюль" */
-.skills-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 12px;
+/* Открытие меню по клику на чекбокс (селектор ~ ) */
+.menu-toggle:checked ~ .main-nav {
+    display: flex; 
 }
 
-.skill {
-    background-color: #1abc9c;
-    color: #ffffff;
-    padding: 8px 18px;
-    border-radius: 20px;
-    font-size: 0.9em;
+.main-nav a {
+    color: #4a3b32;
+    text-decoration: none;
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0e6e8;
+    transition: background-color 0.3s ease, color 0.3s ease;
     font-weight: 500;
-    box-shadow: 0 2px 4px rgba(26, 188, 156, 0.3);
 }
 
-/* Подвал и контакты */
-footer {
+.main-nav a:hover {
+    background-color: #fff0f3;
+    color: #d94f70;
+}
+
+/* --- Герой-секция --- */
+.hero {
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    color: #4a3b32;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.hero h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+}
+
+.btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #d94f70;
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 25px;
+    min-height: 44px; /* Touch-friendly */
+    font-weight: 600;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(217, 79, 112, 0.3);
+}
+
+.btn:hover {
+    background-color: #c03958;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(217, 79, 112, 0.4);
+}
+
+/* --- Карточки ассортимента --- */
+.catalog {
+    padding: 50px 20px;
+}
+
+.catalog h2 {
+    text-align: center;
+    margin-bottom: 35px;
+    font-size: 1.8rem;
+}
+
+/* CSS Grid: Сетка компонентов */
+.catalog-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Одна колонка на мобильном */
+    gap: 25px;
+}
+
+/* Flexbox внутри карточки */
+.card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    background-color: #ecf0f1;
-    width: 100%;
-    max-width: 800px;
-    padding: 30px;
-    margin-bottom: 40px;
-    border-radius: 0 0 12px 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    text-align: center;
+    padding: 35px 20px;
+    background-color: #fff;
+    border-radius: 16px;
+    border: 1px solid #f0e6e8;
+    box-shadow: 0 4px 15px rgba(74, 59, 50, 0.04);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.contacts-container {
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(217, 79, 112, 0.15);
+}
+
+.card-icon {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+}
+
+/* --- Форма заказа --- */
+.order {
+    padding: 50px 20px;
+    background-color: #fff0f3;
+}
+
+.order h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.contact-form {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-weight: 500;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #e0d5d7;
+    border-radius: 8px;
+    min-height: 44px; /* Touch-friendly */
+    font-family: inherit;
+    background-color: #fff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Состояния :focus */
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #d94f70;
+    box-shadow: 0 0 0 3px rgba(217, 79, 112, 0.2);
+}
+
+.submit-btn {
+    background-color: #4a3b32;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 14px;
+    min-height: 44px; /* Touch-friendly */
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+/* Состояния :hover */
+.submit-btn:hover {
+    background-color: #2e241e;
+    transform: scale(1.02);
+}
+
+/* --- Футер --- */
+.footer {
+    background-color: #4a3b32;
+    color: #f0e6e8;
+    text-align: center;
+    padding: 25px 20px;
+    display: flex;
     justify-content: center;
-    gap: 20px;
+    font-size: 0.9rem;
 }
 
-/* Интерактивные ссылки с hover-эффектом */
-.contacts-container a {
-    color: #2c3e50;
-    text-decoration: none;
-    padding: 10px 25px;
-    border: 2px solid #2c3e50;
-    border-radius: 6px;
-    font-weight: 600;
-    transition: all 0.3s ease;
+/* =========================================
+   2. ПЛАНШЕТ (Tablet: 768px - 1199px)
+   ========================================= */
+@media (min-width: 768px) {
+    .catalog-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 колонки на планшете */
+    }
+    
+    .contact-form {
+        max-width: 550px;
+        margin: 0 auto;
+    }
+
+    /* Выравниваем последнюю карточку по центру */
+    .card:last-child {
+        grid-column: 1 / -1;
+        max-width: 50%;
+        margin: 0 auto;
+    }
 }
 
-.contacts-container a:hover {
-    background-color: #2c3e50;
-    color: #ffffff;
+/* =========================================
+   3. ДЕСКТОП (Desktop: от 1200px)
+   ========================================= */
+@media (min-width: 1200px) {
+    .page-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        box-shadow: 0 0 30px rgba(74, 59, 50, 0.08);
+        background-color: #fff;
+    }
+
+    /* Настройка шапки под десктоп */
+    .header {
+        grid-template-columns: auto 1fr;
+        padding: 20px 50px;
+    }
+
+    .hamburger {
+        display: none; /* Прячем гамбургер на больших экранах */
+    }
+
+    .main-nav {
+        display: flex;
+        position: static;
+        flex-direction: row;
+        background-color: transparent;
+        justify-content: flex-end;
+        gap: 35px;
+        box-shadow: none;
+    }
+
+    .main-nav a {
+        border-bottom: none;
+        padding: 10px;
+        border-radius: 6px;
+    }
+
+    .hero {
+        padding: 100px 50px;
+    }
+
+    .hero h1 {
+        font-size: 3.5rem;
+        max-width: 800px;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        max-width: 600px;
+    }
+
+    /* Десктопная сетка для карточек */
+    .catalog-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 колонки на десктопе */
+        gap: 40px;
+        padding: 0 50px;
+    }
+
+    .card:last-child {
+        grid-column: auto;
+        max-width: 100%;
+    }
+
+    .order {
+        padding: 70px 50px;
+    }
 }
+```<FollowUp>Какую лабораторную работу (например, №3 с Todo-листом на JavaScript) разберем следующей?</FollowUp>
