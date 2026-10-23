@@ -1,29 +1,35 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Быки и коровы</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Быки и коровы - Лабораторная №4</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="game-container">
-        <h1>Быки и коровы</h1>
-        <p class="rules">Угадай 4-значное число с неповторяющимися цифрами.</p>
+    <main class="game-app">
+        <header>
+            <h1>Быки и коровы</h1>
+            <p class="subtitle">Угадайте 4-значное число с неповторяющимися цифрами</p>
+        </header>
 
-        <div class="controls">
-            <input type="text" id="guessInput" placeholder="4 цифры (напр. 1234)" maxlength="4">
-            <button id="checkBtn">Проверить</button>
-            <button id="newGameBtn">Новая игра</button>
-        </div>
+        <section class="controls">
+            <input type="text" id="guess-input" placeholder="Например: 1234" maxlength="4">
+            <button id="check-btn">Проверить</button>
+            <button id="new-game-btn">Новая игра</button>
+        </section>
 
-        <div id="errorMsg" class="hidden">Ошибка: введите ровно 4 РАЗНЫЕ цифры!</div>
-        
-        <div id="statusMsg" class="status-win"></div>
-        <div id="attemptsDisplay" class="attempts">Попыток: 0</div>
+        <!-- Блок для вывода ошибки валидации -->
+        <p id="error-msg" class="error-msg hidden"></p>
 
-        <ul id="historyList"></ul>
-    </div>
+        <section class="stats">
+            <p>Попыток: <span id="attempts-count">0</span></p>
+        </section>
+
+        <ul id="history-list" class="history-list">
+            <!-- История генерируется здесь через JS -->
+        </ul>
+    </main>
 </body>
 </html>

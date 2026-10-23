@@ -1,119 +1,151 @@
-// Состояние игры (храним данные отдельно от верстки)
-let secret = '';
-let history = [];
-let attempts = 0;
+// === СОСТОЯНИЕ ПРИЛОЖЕНИЯ (State) ===
+let secretNumber = '';
+let history = []; // Массив объектов { guess: '1234', bulls: 1, cows: 2 }
+let isGameOver = false;
 
-// Элементы интерфейса
-const input = document.getElementById('guessInput');
-const checkBtn = document.getElementById('checkBtn');
-const newGameBtn = document.getElementById('newGameBtn');
-const errorMsg = document.getElementById('errorMsg');
-const historyList = document.getElementById('historyList');
-const attemptsDisplay = document.getElementById('attemptsDisplay');
-const statusMsg = document.getElementById('statusMsg');
+// === ЭЛЕМЕНТЫ DOM ===
+const guessInput = document.getElementById('guess-input');
+const checkBtn = document.getElementById('check-btn');
+const newGameBtn = document.getElementById('new-game-btn');
+const errorMsg = document.getElementById('error-msg');
+const attemptsCount = document.getElementById('attempts-count');
+const historyList = document.getElementById('history-list');
 
-// ФУНКЦИЯ 1: Генерация случайного 4-значного числа с неповторяющимися цифрами
-function generateSecret() {
-    let digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-    // Перемешиваем массив цифр случайным образом
-    digits.sort(() => Math.random() - 0.5);
-    // Берем первые 4 цифры и склеиваем в строку
-    return digits.slice(0, 4).join('');
+// === ЛОГИЧЕСКИЕ ФУНКЦИИ ===
+
+// 1. Генерация 4-значного числа с неповторяющимися цифрами
+function generateSecretNumber() {
+    let digits = [];
+    while (digits.length < 4) {
+        const randomDigit = Math.floor(Math.random() * 10).toString();
+        if (!digits.includes(randomDigit)) {
+            digits.push(randomDigit);
+        }
+    }
+    return digits.join('');
 }
 
-// ФУНКЦИЯ 2: Валидация ввода (только 4 разные цифры)
-function validateInput(val) {
-    // Проверка регулярным выражением: ровно 4 цифры (от 0 до 9)
-    if (!/^\d{4}$/.test(val)) return false;
+// 2. Валидация ввода (только цифры, ровно 4, все разные)
+function validateInput(value) {
+    if (!/^\d{4}$/.test(value)) {
+        return { isValid: false, message: 'Введите ровно 4 цифры (без букв и символов).' };
+    }
     
-    // Превращаем строку в Set (набор уникальных значений)
-    let uniqueDigits = new Set(val.split(''));
-    // Если размер Set равен 4, значит все цифры разные
-    return uniqueDigits.size === 4;
+    // Используем структуру Set (множество) для проверки уникальности, прямо как в Python/C++
+    const uniqueDigits = new Set(value.split(''));
+    if (uniqueDigits.size !== 4) {
+        return { isValid: false, message: 'Все 4 цифры должны быть разными.' };
+    }
+
+    return { isValid: true };
 }
 
-// ФУНКЦИЯ 3: Подсчет быков и коров
-function calculateBullsAndCows(guess, secretStr) {
+// 3. Подсчет быков и коров
+function calculateBullsAndCows(guess, secret) {
     let bulls = 0;
     let cows = 0;
+
     for (let i = 0; i < 4; i++) {
-        if (guess[i] === secretStr[i]) {
-            bulls++; // Цифра и позиция совпадают
-        } else if (secretStr.includes(guess[i])) {
-            cows++; // Цифра есть, но на другой позиции
+        if (guess[i] === secret[i]) {
+            bulls++; // Цифра угадана и на своем месте
+        } else if (secret.includes(guess[i])) {
+            cows++; // Цифра есть, но на другом месте
         }
     }
     return { bulls, cows };
 }
 
-// ФУНКЦИЯ 4: Отрисовка истории из массива (как требовалось в задании)
-function renderHistory() {
+// === УПРАВЛЕНИЕ ИНТЕРФЕЙСОМ (View) ===
+
+// Отрисовка интерфейса на основе текущего состояния массива
+function render() {
+    // Очищаем список
     historyList.innerHTML = '';
+    
+    // Обновляем счетчик
+    attemptsCount.textContent = history.length;
+
+    // Генерируем элементы списка из массива history
     history.forEach(item => {
         const li = document.createElement('li');
-        li.textContent = `${item.guess} — ${item.bulls} бык(а/ов), ${item.cows} коров(ы)`;
+        li.className = 'history-item';
+        
+        // Если это победный ход, добавляем специальный класс
+        if (item.bulls === 4) {
+            li.classList.add('win');
+            li.innerHTML = `<span class="history-guess">${item.guess}</span> 
+                            <span>Победа! Угадано за ${history.length} попыток</span>`;
+        } else {
+            li.innerHTML = `<span class="history-guess">${item.guess}</span> 
+                            <span>${item.bulls} бык(ов), ${item.cows} коров(ы)</span>`;
+        }
+        
         historyList.appendChild(li);
     });
-    attemptsDisplay.textContent = `Попыток: ${attempts}`;
+
+    // Блокируем поле и кнопку проверки, если игра окончена
+    guessInput.disabled = isGameOver;
+    checkBtn.disabled = isGameOver;
 }
 
-// ФУНКЦИЯ 5: Сброс и запуск новой игры
-function startNewGame() {
-    secret = generateSecret();
-    history = [];
-    attempts = 0;
-    
-    input.value = '';
-    input.disabled = false;
-    checkBtn.disabled = false;
-    errorMsg.classList.add('hidden');
-    statusMsg.textContent = '';
-    
-    renderHistory();
-    // Раскомментируй строку ниже, если хочешь подглядывать ответ в консоли для тестов
-    // console.log("Секретное число:", secret); 
-}
-
-// ФУНКЦИЯ 6: Обработка хода игрока
+// Обработка попытки пользователя
 function handleGuess() {
-    const guess = input.value;
+    if (isGameOver) return;
+
+    const guess = guessInput.value.trim();
     
-    if (!validateInput(guess)) {
-        errorMsg.classList.remove('hidden');
-        return; // Прерываем выполнение, попытка не засчитывается
-    }
-    
+    // Скрываем прошлую ошибку
     errorMsg.classList.add('hidden');
-    attempts++;
 
-    const result = calculateBullsAndCows(guess, secret);
-    
-    // Добавляем результат в массив состояния
-    history.push({ 
-        guess: guess, 
-        bulls: result.bulls, 
-        cows: result.cows 
-    });
-    
-    renderHistory();
-
-    // Проверка на победу
-    if (result.bulls === 4) {
-        statusMsg.textContent = `Победа! Угадано за ${attempts} попыток.`;
-        input.disabled = true; // Блокируем поле ввода
-        checkBtn.disabled = true; // Блокируем кнопку проверки
+    // Проверяем валидацию
+    const validation = validateInput(guess);
+    if (!validation.isValid) {
+        errorMsg.textContent = validation.message;
+        errorMsg.classList.remove('hidden');
+        return; // Попытка не засчитывается
     }
+
+    // Считаем быков и коров
+    const result = calculateBullsAndCows(guess, secretNumber);
     
-    input.value = ''; // Очищаем поле для следующего ввода
+    // Добавляем результат в историю
+    history.push({
+        guess: guess,
+        bulls: result.bulls,
+        cows: result.cows
+    });
+
+    // Проверяем победу
+    if (result.bulls === 4) {
+        isGameOver = true;
+    }
+
+    // Очищаем поле ввода и перерисовываем интерфейс
+    guessInput.value = '';
+    render();
 }
 
-// Привязываем события к кнопкам
+// Сброс и старт новой игры
+function startNewGame() {
+    secretNumber = generateSecretNumber();
+    history = [];
+    isGameOver = false;
+    guessInput.value = '';
+    errorMsg.classList.add('hidden');
+    // Для проверки при разработке можно раскомментировать строку ниже:
+    // console.log('Секретное число:', secretNumber); 
+    render();
+}
+
+// === ОБРАБОТЧИКИ СОБЫТИЙ ===
 checkBtn.addEventListener('click', handleGuess);
 newGameBtn.addEventListener('click', startNewGame);
-// Чтобы отправлять ответ по нажатию Enter
-input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !checkBtn.disabled) handleGuess();
+
+guessInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        handleGuess();
+    }
 });
 
-// Запускаем игру при первой загрузке скрипта
+// Запуск первой игры при загрузке страницы
 startNewGame();

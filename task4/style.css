@@ -1,253 +1,146 @@
-/* Базовые настройки и сброс */
-* { 
-    box-sizing: border-box; 
-    margin: 0; 
-    padding: 0; 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-/* 1. МОБИЛЬНЫЕ УСТРОЙСТВА (Базовые стили) */
 body {
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    color: #333;
-    background-color: #f4f7fb; /* Мягкий светлый фон для контраста с градиентами */
-    /* CSS Grid для крупной сетки страницы */
-    display: grid; 
-    grid-template-rows: auto 1fr auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
     min-height: 100vh;
-}
-
-/* Шапка на Flexbox */
-.header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background: white;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
-
-.logo { 
-    font-size: 22px; 
-    font-weight: 800; 
-    letter-spacing: 1px;
-    /* Градиентный текст для логотипа */
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-/* Гамбургер-меню */
-.hamburger {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-.hamburger span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 3px;
-}
-
-.nav { 
-    display: none; /* Скрыто на смартфонах */
-}
-
-/* Основной контент: макро-сетка Grid */
-.main-content {
-    display: grid;
-    gap: 50px;
-    padding: 40px 20px;
-}
-
-.hero {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    text-align: center;
-}
-.hero h1 { 
-    font-size: 32px; 
-    line-height: 1.3; 
-    /* Яркий градиент для главного заголовка */
-    background: linear-gradient(135deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-.hero p { 
-    font-size: 16px; 
-    color: #555; 
-    line-height: 1.5;
-}
-
-/* Сетка карточек на Grid (1 колонка) */
-.services {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 25px;
-}
-
-/* Карточка: микро-сетка Flexbox */
-.card {
-    background: white;
-    padding: 35px 25px;
-    border-radius: 16px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.03);
-    display: flex;
-    flex-direction: column;
     justify-content: center;
-    gap: 12px;
-    /* Обязательный плавный переход */
-    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; 
+    align-items: center;
+    color: #333;
 }
 
-/* Градиент при наведении на карточку */
-.card:hover {
-    transform: translateY(-5px);
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    box-shadow: 0 15px 25px rgba(118, 75, 162, 0.3);
-}
-.card:hover p {
-    color: rgba(255, 255, 255, 0.9);
-}
-.card h3 { 
-    font-size: 20px; 
-}
-.card p { 
-    font-size: 15px; 
-    color: #666; 
-    line-height: 1.6;
-    transition: color 0.3s ease;
+.game-app {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
 }
 
-/* Форма */
-.contact {
-    background: white;
-    padding: 35px 25px;
-    border-radius: 16px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.03);
-}
-.contact h2 {
+header {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
 }
-.contact-form {
+
+header h1 {
+    font-size: 2rem;
+    color: #444;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.controls {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
 }
 
-/* Элементы формы (touch-friendly, min-height 48px) */
-.contact-form input, 
-.contact-form textarea {
-    width: 100%;
-    padding: 15px;
-    border: 2px solid #eef2f6;
-    border-radius: 8px;
-    font-size: 16px;
-    font-family: inherit;
-    min-height: 48px; 
-    background: #fcfcfc;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-.contact-form textarea { 
-    resize: vertical; 
-    min-height: 120px; 
-}
-.contact-form input:focus, 
-.contact-form textarea:focus {
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
-    outline: none;
-    background: white;
-}
-
-.contact-form button {
-    /* Градиентная кнопка */
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+#guess-input {
+    flex-grow: 1;
+    padding: 12px 15px;
     border: none;
-    border-radius: 8px;
-    padding: 15px;
-    font-size: 16px;
-    font-weight: bold;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+    font-size: 1.1rem;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+    min-width: 120px;
+}
+
+#guess-input:focus {
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05), 0 0 0 2px #8ec5fc;
+}
+
+#guess-input:disabled {
+    background: rgba(200, 200, 200, 0.3);
+    cursor: not-allowed;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
     cursor: pointer;
-    min-height: 48px;
-    transition: opacity 0.3s ease, transform 0.1s ease;
-}
-.contact-form button:hover { 
-    opacity: 0.9; 
-}
-.contact-form button:active {
-    transform: scale(0.98);
+    transition: background 0.3s ease, transform 0.1s ease;
+    color: white;
 }
 
-.footer { 
+#check-btn {
+    background: #a18cd1;
+}
+
+#check-btn:hover { background: #8f79c2; }
+#check-btn:disabled { background: #ccc; cursor: not-allowed; }
+#check-btn:active:not(:disabled) { transform: scale(0.95); }
+
+#new-game-btn {
+    background: #fbc2eb;
+    color: #444;
+}
+
+#new-game-btn:hover { background: #fab1e6; }
+#new-game-btn:active { transform: scale(0.95); }
+
+.error-msg {
+    color: #d8000c;
+    background-color: #ffd2d2;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.hidden { display: none; }
+
+.stats {
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #444;
+}
+
+.history-list {
+    list-style: none;
+    max-height: 250px;
+    overflow-y: auto;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    padding-top: 15px;
+}
+
+.history-item {
     background: white;
-    color: #888; 
-    text-align: center; 
-    padding: 25px 20px; 
-    font-size: 14px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    display: flex;
+    justify-content: space-between;
+    animation: slideIn 0.3s ease;
 }
 
-/* 2. ПЛАНШЕТЫ (От 768px) */
-@media (min-width: 768px) {
-    .main-content { 
-        padding: 60px 40px; 
-    }
-    .hero h1 { 
-        font-size: 42px; 
-    }
-    
-    .services { 
-        grid-template-columns: repeat(2, 1fr); /* 2 колонки */
-    }
-    
-    .contact {
-        padding: 45px 50px;
-    }
-
-    .hamburger { 
-        display: none; 
-    }
-    .nav { 
-        display: flex; 
-        gap: 30px; 
-    }
-    .nav a { 
-        color: #555; 
-        text-decoration: none; 
-        font-size: 15px; 
-        font-weight: 600;
-        transition: color 0.3s ease; 
-    }
-    .nav a:hover { 
-        color: #764ba2; 
-    }
+.history-item.win {
+    background: #d4edda;
+    color: #155724;
+    font-weight: bold;
 }
 
-/* 3. ДЕСКТОП (От 1200px) */
-@media (min-width: 1200px) {
-    .main-content { 
-        padding: 80px 10vw; 
-        max-width: 1200px; 
-        margin: 0 auto; 
-    }
-    .hero {
-        padding: 40px 0;
-    }
-    .hero h1 {
-        font-size: 52px;
-    }
-    .services { 
-        grid-template-columns: repeat(3, 1fr); /* 3 колонки */
-    }
-    .contact {
-        max-width: 600px;
-        margin: 0 auto;
-        width: 100%;
-    }
+.history-guess { font-family: monospace; font-size: 1.1rem; }
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
 }
