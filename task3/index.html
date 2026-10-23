@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo List</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Todo List - Лабораторная №3</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Скрипт подключается с defer, чтобы он сработал после загрузки HTML -->
+    <!-- Скрипт подключается с defer, как требует задание -->
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="app-container">
-        <h1>Список задач</h1>
-        
-        <!-- Ввод новой задачи -->
-        <div class="input-group">
-            <input type="text" id="taskInput" placeholder="Что нужно сделать?">
-            <button id="addBtn">Добавить</button>
-        </div>
-        <div id="warning" class="hidden">Поле не может быть пустым!</div>
+    <main class="todo-app">
+        <header>
+            <h1>Мои задачи</h1>
+        </header>
 
-        <!-- Фильтры -->
-        <div class="filters">
+        <section class="input-section">
+            <input type="text" id="todo-input" placeholder="Что нужно сделать?">
+            <button id="add-btn" aria-label="Добавить задачу">+</button>
+        </section>
+
+        <section class="filters">
             <button class="filter-btn active" data-filter="all">Все</button>
             <button class="filter-btn" data-filter="active">Активные</button>
             <button class="filter-btn" data-filter="completed">Завершённые</button>
-        </div>
+        </section>
 
-        <!-- Статистика -->
-        <div class="stats">
-            Осталось: <span id="activeCount">0</span>, Выполнено: <span id="completedCount">0</span>
-        </div>
+        <ul id="todo-list" class="todo-list">
+            <!-- Задачи будут генерироваться здесь через JS -->
+        </ul>
 
-        <!-- Сюда JS будет генерировать задачи -->
-        <ul id="taskList"></ul>
-    </div>
+        <footer class="stats">
+            <p>Осталось: <span id="count-remaining">0</span></p>
+            <p>Выполнено: <span id="count-completed">0</span></p>
+        </footer>
+    </main>
 </body>
 </html>

@@ -1,123 +1,127 @@
-// 1. Хранилище данных (состояние)
+// Состояние приложения (массив объектов)
 let tasks = [];
-let currentFilter = 'all'; // 'all', 'active', 'completed'
+let currentFilter = 'all';
 
-// 2. Получение ссылок на элементы интерфейса
-const taskInput = document.getElementById('taskInput');
-const addBtn = document.getElementById('addBtn');
-const warning = document.getElementById('warning');
-const taskList = document.getElementById('taskList');
-const activeCountEl = document.getElementById('activeCount');
-const completedCountEl = document.getElementById('completedCount');
+// Ссылки на элементы DOM
+const todoInput = document.getElementById('todo-input');
+const addBtn = document.getElementById('add-btn');
+const todoList = document.getElementById('todo-list');
+const countRemaining = document.getElementById('count-remaining');
+const countCompleted = document.getElementById('count-completed');
 const filterBtns = document.querySelectorAll('.filter-btn');
 
-// 3. Главная функция отрисовки (рендера)
+// Главная функция отрисовки интерфейса (вызывается при любом изменении данных)
 function render() {
-    taskList.innerHTML = ''; // Очищаем список перед новой отрисовкой
-
-    // Применяем фильтр к массиву
+    // 1. Фильтруем задачи в зависимости от выбранной вкладки (используем метод filter)
     const filteredTasks = tasks.filter(task => {
         if (currentFilter === 'active') return !task.completed;
         if (currentFilter === 'completed') return task.completed;
-        return true; 
+        return true; // для 'all'
     });
 
-    // Отрисовываем отфильтрованные задачи
+    // 2. Очищаем текущий список
+    todoList.innerHTML = '';
+
+    // 3. Генерируем HTML-элементы для каждой задачи (используем forEach)
     filteredTasks.forEach(task => {
         const li = document.createElement('li');
-        if (task.completed) li.classList.add('completed');
+        li.className = `todo-item ${task.completed ? 'completed' : ''}`;
 
-        // Обертка для галочки и текста
-        const div = document.createElement('div');
-        div.classList.add('task-content');
-
-        // Чекбокс выполнения
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = task.completed;
+        // Обработчик события изменения статуса
         checkbox.addEventListener('change', () => toggleTask(task.id));
 
-        // Текст задачи
-        const span = document.createElement('span');
-        span.classList.add('task-text');
-        span.textContent = task.text;
+        const textSpan = document.createElement('span');
+        textSpan.className = 'task-text';
+        textSpan.textContent = task.text;
 
-        div.appendChild(checkbox);
-        div.appendChild(span);
-
-        // Кнопка удаления
         const delBtn = document.createElement('button');
-        delBtn.classList.add('delete-btn');
-        delBtn.textContent = 'Удалить';
+        delBtn.className = 'delete-btn';
+        delBtn.innerHTML = '×';
+        delBtn.setAttribute('aria-label', 'Удалить задачу');
+        // Обработчик события удаления
         delBtn.addEventListener('click', () => deleteTask(task.id));
 
-        li.appendChild(div);
+        // Сборка элемента списка
+        li.appendChild(checkbox);
+        li.appendChild(textSpan);
         li.appendChild(delBtn);
-        taskList.appendChild(li);
+        
+        todoList.appendChild(li);
     });
 
-    // Обновляем статистику
-    const completedCount = tasks.filter(t => t.completed).length;
-    const activeCount = tasks.length - completedCount;
-    activeCountEl.textContent = activeCount;
-    completedCountEl.textContent = completedCount;
+    // 4. Обновление счетчиков
+    const completedTasksCount = tasks.filter(t => t.completed).length;
+    const remainingTasksCount = tasks.length - completedTasksCount;
+    
+    countCompleted.textContent = completedTasksCount;
+    countRemaining.textContent = remainingTasksCount;
 }
 
-// 4. Функция добавления задачи
+// Функция добавления новой задачи
 function addTask() {
-    const text = taskInput.value.trim();
-    if (text === '') {
-        warning.classList.remove('hidden'); // Показываем предупреждение
+    const text = todoInput.value.trim();
+    
+    // Валидация на пустой ввод
+    if (!text) {
+        alert('Пожалуйста, введите текст задачи!');
         return;
     }
-    warning.classList.add('hidden'); // Прячем предупреждение
 
+    // Создание объекта задачи (id через Date.now())
     const newTask = {
-        id: Date.now(), // Уникальный ID на основе времени
+        id: Date.now(),
         text: text,
         completed: false
     };
 
-    tasks.push(newTask); // Добавляем в массив данных
-    taskInput.value = ''; // Очищаем поле ввода
-    render(); // Перерисовываем интерфейс
+    tasks.push(newTask);
+    todoInput.value = ''; // очистка поля
+    render(); // перерисовка UI
 }
 
-// 5. Функция переключения статуса "Выполнено"
+// Функция переключения статуса задачи
 function toggleTask(id) {
-    tasks = tasks.map(task => {
-        if (task.id === id) {
-            return { ...task, completed: !task.completed };
-        }
-        return task;
-    });
-    render();
+    const task = tasks.find(t => t.id === id);
+    if (task) {
+        task.completed = !task.completed;
+        render();
+    }
 }
 
-// 6. Функция удаления
+// Функция удаления задачи
 function deleteTask(id) {
-    tasks = tasks.filter(task => task.id !== id);
+    tasks = tasks.filter(t => t.id !== id);
     render();
 }
 
-// 7. Обработчики событий (Event Listeners)
+// === ОБРАБОТЧИКИ СОБЫТИЙ (только через addEventListener) ===
+
+// Клик по кнопке добавления
 addBtn.addEventListener('click', addTask);
 
-// Отправка по нажатию Enter
-taskInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') addTask();
+// Добавление по нажатию клавиши Enter
+todoInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        addTask();
+    }
 });
 
-// Переключение фильтров
+// Клик по фильтрам
 filterBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
-        filterBtns.forEach(b => b.classList.remove('active')); // Сбрасываем цвета кнопок
-        e.target.classList.add('active'); // Красим нажатую
+        // Убираем активный класс у всех кнопок
+        filterBtns.forEach(b => b.classList.remove('active'));
+        // Добавляем нажатой кнопке
+        e.target.classList.add('active');
         
-        currentFilter = e.target.dataset.filter; // Берем значение из data-filter="all/active/completed"
+        // Меняем состояние фильтра и перерисовываем
+        currentFilter = e.target.dataset.filter;
         render();
     });
 });
 
-// Запускаем рендер при старте, чтобы отобразить нули в статистике
+// Первичная отрисовка при загрузке страницы
 render();

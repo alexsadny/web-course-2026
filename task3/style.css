@@ -1,26 +1,175 @@
-* { box-sizing: border-box; }
-body { font-family: Arial, sans-serif; display: flex; justify-content: center; padding: 20px; background: #f4f4f4;}
-.app-container { background: white; padding: 20px; border-radius: 8px; width: 100%; max-width: 450px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-.input-group { display: flex; gap: 10px; margin-bottom: 5px; }
-input[type="text"] { flex: 1; padding: 8px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px;}
-button { padding: 8px 12px; cursor: pointer; border: none; border-radius: 4px; background: #007bff; color: white; }
-button:hover { opacity: 0.9; }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Красивый современный градиент на фоне */
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
 
-.hidden { display: none !important; }
-#warning { color: red; font-size: 12px; margin-bottom: 10px; }
+.todo-app {
+    /* Эффект стекла (Glassmorphism) */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 90%;
+    max-width: 450px;
+}
 
-.filters { display: flex; gap: 10px; margin-bottom: 15px; }
-.filter-btn { background: #e0e0e0; color: #333; }
-.filter-btn.active { background: #007bff; color: white; }
+header h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    color: #444;
+}
 
-.stats { font-size: 14px; margin-bottom: 15px; color: #555; font-weight: bold; }
+.input-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
 
-ul { list-style: none; padding: 0; margin: 0; }
-li { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee; }
-.task-content { display: flex; align-items: center; gap: 10px; }
+#todo-input {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+    font-size: 1rem;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+}
 
-/* Визуальное перечеркивание для выполненной задачи */
-.completed .task-text { text-decoration: line-through; opacity: 0.6; }
+#todo-input:focus {
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05), 0 0 0 2px #a8edea;
+}
 
-.delete-btn { background: #ff4d4d; }
+#add-btn {
+    background: #ff9a9e;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    width: 45px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.1s ease;
+}
+
+#add-btn:hover {
+    background: #ff758c;
+}
+
+#add-btn:active {
+    transform: scale(0.95);
+}
+
+.filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.filter-btn {
+    flex: 1;
+    padding: 8px 0;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #666;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.filter-btn.active {
+    background: white;
+    color: #333;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.todo-list {
+    list-style: none;
+    margin-bottom: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Стилизация скроллбара */
+.todo-list::-webkit-scrollbar { width: 6px; }
+.todo-list::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 3px; }
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Требование из методички: стилизация выполненной задачи */
+.todo-item.completed .task-text {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.todo-item input[type="checkbox"] {
+    margin-right: 15px;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    accent-color: #ff758c;
+}
+
+.task-text {
+    flex-grow: 1;
+    word-break: break-word;
+    transition: opacity 0.3s ease;
+}
+
+.delete-btn {
+    background: transparent;
+    border: none;
+    color: #ff4d4f;
+    font-size: 1.5rem;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.delete-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #555;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    padding-top: 15px;
+}
